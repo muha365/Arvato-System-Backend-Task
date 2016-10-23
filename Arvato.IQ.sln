@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.IQ.Core", "Arvato.IQ.Cor\Arvato.IQ.Core.csproj", "{A82CDB3D-9239-486C-A00A-025B29CA1C8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.IQ.Core", "Arvato.IQ.Core\Arvato.IQ.Core.csproj", "{A82CDB3D-9239-486C-A00A-025B29CA1C8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B94A1972-1BAE-448A-A1D3-6999690C3941}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.IQ.Tests", "Tests\Arvato.IQ.Tests\Arvato.IQ.Tests.csproj", "{408B9FA0-B277-4592-B910-F56B599294FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +19,15 @@ Global
 		{A82CDB3D-9239-486C-A00A-025B29CA1C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A82CDB3D-9239-486C-A00A-025B29CA1C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A82CDB3D-9239-486C-A00A-025B29CA1C8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{408B9FA0-B277-4592-B910-F56B599294FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{408B9FA0-B277-4592-B910-F56B599294FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{408B9FA0-B277-4592-B910-F56B599294FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{408B9FA0-B277-4592-B910-F56B599294FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{408B9FA0-B277-4592-B910-F56B599294FB} = {B94A1972-1BAE-448A-A1D3-6999690C3941}
 	EndGlobalSection
 EndGlobal

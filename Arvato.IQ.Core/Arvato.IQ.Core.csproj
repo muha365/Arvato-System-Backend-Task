@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\ResourceLink.cs" />
     <Compile Include="Entities\IStory.cs" />
     <Compile Include="IDbStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
