@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Arvato.IQ.Cor.Stores
+namespace Arvato.IQ.Core.Stores
 {
     /// <summary>
     /// interface that exposes / represent basic store api

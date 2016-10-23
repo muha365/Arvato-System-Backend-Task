@@ -1,11 +1,11 @@
-﻿using Arvato.IQ.Cor.Entities;
+﻿using Arvato.IQ.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Arvato.IQ.Cor.Stores
+namespace Arvato.IQ.Core.Stores
 {
     /// <summary>
     /// interface that exposes story store basic api with key type of int64.  

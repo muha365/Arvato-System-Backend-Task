@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Arvato.IQ.Cor
+namespace Arvato.IQ.Core
 {
     /// <summary>
     /// interface that exposes basic database unit of work api

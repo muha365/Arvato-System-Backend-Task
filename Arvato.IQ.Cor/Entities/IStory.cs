@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Arvato.IQ.Cor.Entities
+namespace Arvato.IQ.Core.Entities
 {
     /// <summary>
     /// Represent default Story contract with default Tkey type as System.Int64

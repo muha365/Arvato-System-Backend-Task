@@ -7,10 +7,11 @@
     <ProjectGuid>{A82CDB3D-9239-486C-A00A-025B29CA1C8B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Arvato.IQ.Cor</RootNamespace>
-    <AssemblyName>Arvato.IQ.Cor</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>Arvato.IQ.Core</RootNamespace>
+    <AssemblyName>Arvato.IQ.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
