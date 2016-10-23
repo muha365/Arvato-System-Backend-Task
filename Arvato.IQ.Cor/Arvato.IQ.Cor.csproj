@@ -45,6 +45,7 @@
     <Compile Include="IDbStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stores\IStore.cs" />
+    <Compile Include="Stores\IStoryStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\" />
