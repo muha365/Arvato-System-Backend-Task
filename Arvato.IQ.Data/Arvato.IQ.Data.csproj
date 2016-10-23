@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbStore.cs" />
+    <Compile Include="DbStoreConfig.cs" />
     <Compile Include="Entities\Config\StoryEntityConfig.cs" />
     <Compile Include="Entities\Story.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
