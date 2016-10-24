@@ -38,7 +38,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
       <Private>True</Private>
@@ -66,9 +78,16 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Core\ResourceLinkTests.cs" />
+    <Compile Include="Data\DbStoreInitializer.cs" />
+    <Compile Include="Data\DbConfigForTest.cs" />
+    <Compile Include="Data\Helpers.cs" />
+    <Compile Include="Data\DbStoreTests.cs" />
+    <Compile Include="Fixtures\DbStoreFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Collections\DbStoreCollection.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -76,7 +95,12 @@
       <Project>{A82CDB3D-9239-486C-A00A-025B29CA1C8B}</Project>
       <Name>Arvato.IQ.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Arvato.IQ.Data\Arvato.IQ.Data.csproj">
+      <Project>{9FBB0304-FB7F-4D43-AA1B-D6B0AA6136B8}</Project>
+      <Name>Arvato.IQ.Data</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

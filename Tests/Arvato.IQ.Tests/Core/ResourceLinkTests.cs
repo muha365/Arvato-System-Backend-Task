@@ -8,6 +8,7 @@ using Xunit;
 
 namespace Arvato.IQ.Tests.Core
 {
+    [Trait("ResourceLink","")]
     public class ResourceLinkTests
     {
 
