@@ -53,6 +53,11 @@
     <Compile Include="DbStoreConfig.cs" />
     <Compile Include="Entities\Config\StoryEntityConfig.cs" />
     <Compile Include="Entities\Story.cs" />
+    <Compile Include="Migrations\201610240012518_initial.cs" />
+    <Compile Include="Migrations\201610240012518_initial.Designer.cs">
+      <DependentUpon>201610240012518_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +72,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610240012518_initial.resx">
+      <DependentUpon>201610240012518_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
