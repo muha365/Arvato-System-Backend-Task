@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Arvato.IQ.Data;
+using Moq;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -7,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Arvato.IQ.Tests.Data
+namespace Arvato.IQ.Tests.Data.Helpers
 {
     public static class DbTestHelper
     {
@@ -91,6 +93,19 @@ namespace Arvato.IQ.Tests.Data
             }
         }
 
+        public static DbStore MockDbStore()
+        {
+            List<Story> stories = new List<Story>();
+            for (int i = 1; i <= 25; i++)
+            {
+                stories.Add(new Story() { StoryId = i, Title = "story "+i, Description = "story "+i+" description", PublishedAt = DateTime.UtcNow });
+            }
+
+            var dbSet = new MockDbSet<Story>().SetupSeedData(stories).SetupLinq();
+            var dbContext = new Mock<DbStore>();
+            dbContext.Setup(x => x.Set<Story>()).Returns(dbSet.Object);
+            return dbContext.Object; 
+        }
     }
 
 }

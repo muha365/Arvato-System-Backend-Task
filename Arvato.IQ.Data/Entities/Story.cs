@@ -33,22 +33,22 @@ namespace Arvato.IQ.Data
         /// <summary>
         /// story Id
         /// </summary>
-        public TKey StoryId { get; set; }
+        public virtual TKey StoryId { get; set; }
 
         /// <summary>
         /// story title
         /// </summary>
-        public string Title { get; set; }
+        public virtual string Title { get; set; }
 
         /// <summary>
         /// story description
         /// </summary>
-        public string Description { get; set; }
+        public virtual string Description { get; set; }
 
         /// <summary>
         /// published at
         /// </summary>
-        public DateTime PublishedAt { get; set; }
+        public virtual DateTime PublishedAt { get; set; }
 
     }
 
