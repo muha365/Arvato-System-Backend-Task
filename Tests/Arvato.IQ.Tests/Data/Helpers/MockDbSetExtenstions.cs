@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Arvato.IQ.Tests.Data.Helpers
 {
@@ -63,7 +64,11 @@ namespace Arvato.IQ.Tests.Data.Helpers
         {
             set.Setup(s => s.Find(It.IsAny<object[]>()))
                 .Returns((object[] keyValues) => set.Data.SingleOrDefault(e => finder(keyValues, e)));
-
+            set.Setup(s => s.FindAsync(It.IsAny<object[]>()))
+                            .Returns<object[]>(async (d) =>
+                            {
+                                return await Task.FromResult<TEntity>(set.Data.SingleOrDefault(e => finder(d, e)));
+                            });
             return set;
         }
     }

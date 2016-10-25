@@ -73,6 +73,10 @@ namespace Arvato.IQ.Data.Stores
         /// <returns></returns>
         public async Task<IEnumerable<TEntity>> FindAsync(int page, int take, string orderBy)
         {
+            if (string.IsNullOrEmpty(orderBy))
+            {
+                throw new ArgumentException("Argument {0} shouldnot be null or empty string", nameof(orderBy));
+            }
             return await All
                 .OrderBy(orderBy).Page(page, take).ToListAsync();
         }
@@ -110,16 +114,42 @@ namespace Arvato.IQ.Data.Stores
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        public virtual async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
             ThrowIfDisposed();
             IQueryable<TEntity> query = All;
-            if (predicate != null)
+            if (predicate == null)
             {
-                return await query.SingleOrDefaultAsync(predicate);
+                throw new ArgumentNullException(nameof(predicate));
             }
-            return await query.SingleOrDefaultAsync();
+            return await query.SingleOrDefaultAsync(predicate);
         }
+
+        /// <summary>
+        /// retrieve first entity in the store or default value of its type
+        /// </summary>
+        /// <param name="predicate"> where criteria for selecting the entity</param>
+        /// <returns></returns>
+        public virtual async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            ThrowIfDisposed();
+            if (predicate == null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+            return await All.FirstOrDefaultAsync(predicate);
+        }
+
+        /// <summary>
+        /// retrieve first entity in the store or default value of its type
+        /// </summary>
+        /// <returns></returns>
+        public virtual async Task<TEntity> FirstOrDefaultAsync()
+        {
+            ThrowIfDisposed(); 
+            return await All.FirstOrDefaultAsync();
+        }
+
 
         /// <summary>
         /// Get total count of entities asynchronously
@@ -194,6 +224,7 @@ namespace Arvato.IQ.Data.Stores
             return entity;
         }
 
+
         /// <summary>
         /// Update entity
         /// </summary>
@@ -204,7 +235,7 @@ namespace Arvato.IQ.Data.Stores
             ThrowIfDisposed();
             if (entity == null)
             {
-                throw new ArgumentNullException(nameof(TEntity));
+                throw new ArgumentNullException(nameof(entity));
             }
             store.Update(entity);
             if (AutoSaveChanges)

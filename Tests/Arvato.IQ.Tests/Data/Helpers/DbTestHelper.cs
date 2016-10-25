@@ -95,16 +95,22 @@ namespace Arvato.IQ.Tests.Data.Helpers
 
         public static DbStore MockDbStore()
         {
+             
             List<Story> stories = new List<Story>();
             for (int i = 1; i <= 25; i++)
             {
                 stories.Add(new Story() { StoryId = i, Title = "story "+i, Description = "story "+i+" description", PublishedAt = DateTime.UtcNow });
             }
 
-            var dbSet = new MockDbSet<Story>().SetupSeedData(stories).SetupLinq();
+            var dbSet = new MockDbSet<Story>().SetupSeedData(stories).SetupLinq().SetupAddAndRemove();
+            dbSet.SetupFind((keys,story) => story.StoryId == (long) keys[0]);
             var dbContext = new Mock<DbStore>();
+           
             dbContext.Setup(x => x.Set<Story>()).Returns(dbSet.Object);
-            return dbContext.Object; 
+            dbContext.Setup(x => x.SaveChanges()).Returns(1).Verifiable();
+            dbContext.Setup(x => x.SaveChangesAsync()).ReturnsAsync(1).Verifiable();
+            return dbContext.Object;
+           
         }
     }
 

@@ -76,7 +76,14 @@ namespace Arvato.IQ.Data
             return db;
         }
 
-       
-    }
-
-}
+        /// <summary>
+        /// Set entity as modified 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="modifiedObject"></param>
+        public virtual void SetModified<T>(T modifiedObject) where T : class, new()
+        {
+            Entry(modifiedObject).State = EntityState.Modified;
+        } 
+    }  
+} 

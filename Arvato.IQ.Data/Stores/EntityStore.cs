@@ -11,13 +11,13 @@ namespace Arvato.IQ.Data.Stores
     ///     EntityFramework based IEntityStore that allows query/manipulation of a TEntity set
     /// </summary>
     /// <typeparam name="TEntity">Concrete entity type, i.e .Organization </typeparam>
-    internal class EntityStore<TEntity> where TEntity : class
+    internal class EntityStore<TEntity> where TEntity : class,new()
     {
         /// <summary>
         ///     Constructor that takes a Context
         /// </summary>
         /// <param name="context"></param>
-        public EntityStore(DbContext context)
+        public EntityStore(DbStore context)
         {
             Context = context;
             DbEntitySet = context.Set<TEntity>();
@@ -26,7 +26,7 @@ namespace Arvato.IQ.Data.Stores
         /// <summary>
         ///     Context for the store
         /// </summary>
-        public DbContext Context { get; private set; }
+        public DbStore Context { get; private set; }
 
         /// <summary>
         ///     Used to query the entities
@@ -76,7 +76,7 @@ namespace Arvato.IQ.Data.Stores
         {
             if (entity != null)
             {
-                Context.Entry(entity).State = EntityState.Modified;
+                Context.SetModified<TEntity>(entity);
             }
         }
     }
