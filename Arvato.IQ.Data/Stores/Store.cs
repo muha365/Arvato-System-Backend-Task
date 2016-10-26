@@ -29,7 +29,7 @@ namespace Arvato.IQ.Data.Stores
         /// Default constructor
         /// </summary>
         /// <param name="context"></param>
-        public Store(DbStore context)
+        public Store(DbStore context,bool autoSaveChanges = true)
         {
             if (context == null)
             {
@@ -37,7 +37,7 @@ namespace Arvato.IQ.Data.Stores
             }
             DbStore = context;
             store = new EntityStore<TEntity>(context);
-            AutoSaveChanges = true;
+            AutoSaveChanges = autoSaveChanges;
         }
 
         /// <summary>

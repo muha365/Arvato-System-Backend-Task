@@ -43,5 +43,7 @@ namespace Arvato.IQ.Data.Helpers
             // Return the table name from the storage entity set
             return (string)table.MetadataProperties["Table"].Value ?? table.Name;
         }
+
+     
     }
 }

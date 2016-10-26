@@ -12,6 +12,7 @@ namespace Arvato.IQ.Core
     public interface IDbStore : IDisposable
     {
 
+         
         /// <summary>
         /// Save changes Asynchronously 
         /// </summary>

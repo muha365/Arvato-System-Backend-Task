@@ -27,5 +27,6 @@ namespace Arvato.IQ.Core.Stores
         where TKey : IEquatable<TKey>
     {
 
+        Task<IEnumerable<TEntity>> Search(string term);
     }
 }
