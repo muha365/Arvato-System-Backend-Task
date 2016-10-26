@@ -1,12 +1,7 @@
 ﻿using Arvato.IQ.Api.Models;
-using Arvato.IQ.Core.Entities;
 using Arvato.IQ.Core.Stores;
 using Arvato.IQ.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -118,7 +113,7 @@ namespace Arvato.IQ.Api.Controllers
         /// <response code="201">Created successfully</response>
         /// <response code="400">Bad request</response>
         /// <response code="500">Internal Server Error</response>
-        [ResponseType(typeof(Models.StoryResource))]
+        [ResponseType(typeof(StoryResource))]
         public async Task<IHttpActionResult> Post([FromBody] StoryModel story)
         {
             if (ModelState.IsValid)
@@ -142,12 +137,12 @@ namespace Arvato.IQ.Api.Controllers
         /// Update story
         /// </summary>
         /// <param name="story"></param>
-        /// <returns>created new resource</returns>
+        /// <returns>Updated or created new resource</returns>
         /// <response code="200">Updated successfully</response>
         /// <response code="201">Created successfully</response>
         /// <response code="400">Bad request</response>
         /// <response code="500">Internal Server Error</response>
-        [ResponseType(typeof(Models.StoryResource))]
+        [ResponseType(typeof(StoryResource))]
         public async Task<IHttpActionResult> Put([FromBody] StoryModel story)
         {
             if (ModelState.IsValid)
