@@ -13,6 +13,9 @@ using System.Web.Http.Description;
 
 namespace Arvato.IQ.Api.Controllers
 {
+    /// <summary>
+    /// expose stories api functions
+    /// </summary>
     public class StoriesController : ApiController
     {
         private ResourcesFactory resourceFactory;
@@ -32,7 +35,7 @@ namespace Arvato.IQ.Api.Controllers
         /// constructor takes IStoryStore
         /// </summary>
         /// <param name="store"></param>
-        public StoriesController(IStoryStore<Story,long> store)
+        public StoriesController(IStoryStore<Story, long> store)
         {
             if (store == null)
             {
@@ -44,7 +47,7 @@ namespace Arvato.IQ.Api.Controllers
         /// <summary>
         /// story store
         /// </summary>
-        protected IStoryStore<Story,long> Store { get; private set; }
+        protected IStoryStore<Story, long> Store { get; private set; }
 
         /// <summary>
         /// Get all stories paged
@@ -52,10 +55,11 @@ namespace Arvato.IQ.Api.Controllers
         /// <param name="page"> page index</param>
         /// <param name="take"> stories per page </param>
         /// <returns>stories</returns> 
+        /// <response code="200">Resource found successfully</response>
         /// <response code="400">Bad request</response>
         /// <response code="500">Internal Server Error</response>
         [ResponseType(typeof(StoriesResource))]
-        public async Task<IHttpActionResult> Get(int page, int take)
+        public async Task<IHttpActionResult> Get([FromUri] int page, [FromUri] int take)
         {
             if (page <= 0)
             {
@@ -77,15 +81,35 @@ namespace Arvato.IQ.Api.Controllers
             }
             catch (Exception ex)
             {
-                // we will log error here & trace it 
-                //Configuration.Services.GetTraceWriter()
-                //.Info(Request, 
-                //this.ControllerContext.ControllerDescriptor.ControllerType.FullName,
-                //"Get the list of Stories exception {0}.",ex.Message);
-                return InternalServerError(ex);
+                 return InternalServerError(ex);
             }
         }
 
+        /// <summary>
+        /// Get story by id
+        /// </summary>
+        /// <param name="id">story id</param>
+        /// <returns></returns>
+        /// <response code="200">Resource found successfully</response>
+        /// <response code="400">Bad request</response>
+        /// <response code="500">Internal Server Error</response>
+        [ResponseType(typeof(StoryResource))]
+        public async Task<IHttpActionResult> Get([FromUri] int id)
+        {
+            try
+            {
+                var data = await Store.FindByIdAsync(id);
+                if (data == null)
+                {
+                    return NotFound();
+                }
+                return Ok(this.ResourceFactory.Create(data));
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
         /// <summary>
         /// Create new story
         /// </summary>
@@ -95,14 +119,15 @@ namespace Arvato.IQ.Api.Controllers
         /// <response code="400">Bad request</response>
         /// <response code="500">Internal Server Error</response>
         [ResponseType(typeof(Models.StoryResource))]
-        public async Task<IHttpActionResult> Post(Story story)
+        public async Task<IHttpActionResult> Post([FromBody] StoryModel story)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await Store.CreateAsync(story);
-                    return CreatedAtRoute("default", new { id = story.StoryId }, ResourceFactory.Create(story));
+                    var storyEntity = new Story() { Title = story.Title, Description = story.Description, PublishedAt = story.PublishedAt.ToUniversalTime() };
+                    await Store.CreateAsync(storyEntity);
+                    return CreatedAtRoute("defaultApi", new { id = story.StoryId }, ResourceFactory.Create(storyEntity));
                 }
                 catch (Exception ex)
                 {
@@ -112,8 +137,58 @@ namespace Arvato.IQ.Api.Controllers
             return BadRequest(ModelState);
         }
 
+
+        /// <summary>
+        /// Update story
+        /// </summary>
+        /// <param name="story"></param>
+        /// <returns>created new resource</returns>
+        /// <response code="200">Updated successfully</response>
+        /// <response code="201">Created successfully</response>
+        /// <response code="400">Bad request</response>
+        /// <response code="500">Internal Server Error</response>
+        [ResponseType(typeof(Models.StoryResource))]
+        public async Task<IHttpActionResult> Put([FromBody] StoryModel story)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var storyEntity = await Store.FindByIdAsync(story.StoryId);
+                    if (storyEntity != null)
+                    {
+                        storyEntity.Title = story.Title;
+                        storyEntity.Description = story.Description;
+                        story.PublishedAt = story.PublishedAt;
+                        await Store.UpdateAsync(storyEntity);
+                        return Ok();
+                    }
+                    else
+                    {
+                        storyEntity = new Story() { Title = story.Title, Description = story.Description, PublishedAt = story.PublishedAt.ToUniversalTime() };
+                        await Store.CreateAsync(storyEntity);
+                        return CreatedAtRoute("defaultApi", new { id = story.StoryId }, ResourceFactory.Create(storyEntity));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return InternalServerError(ex);
+                }
+            }
+            return BadRequest(ModelState);
+        }
+
+
+        /// <summary>
+        /// Delete story using its Id
+        /// </summary>
+        /// <param name="id">story id</param>
+        /// <returns></returns>
+        /// <response code="200">Deleted successfully</response>
+        /// <response code="404">Resource not found</response>
+        /// <response code="500">Internal Server Error</response>
         [HttpDelete]
-        public async Task<IHttpActionResult> Delete(long id)
+        public async Task<IHttpActionResult> Delete([FromUri] long id)
         {
             try
             {
