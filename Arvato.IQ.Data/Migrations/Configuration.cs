@@ -25,7 +25,11 @@ namespace Arvato.IQ.Data.Migrations
             "http://feeds.bbci.co.uk/news/rss.xml?edition=asia",
             "http://feeds.bbci.co.uk/news/world/rss.xml",
             "http://feeds.bbci.co.uk/news/world/australia/rss.xml",
-            "http://feeds.bbci.co.uk/sport/football/rss.xml"
+            "http://feeds.bbci.co.uk/sport/football/rss.xml",
+            "http://feeds.bbci.co.uk/news/business/rss.xml",
+            "http://feeds.bbci.co.uk/news/health/rss.xml",
+            "http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml",
+            "http://feeds.bbci.co.uk/news/education/rss.xml"
             };
 
             List<Story> bulk = new List<Story>();

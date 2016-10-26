@@ -43,7 +43,7 @@ namespace Arvato.IQ.Data.Stores
                 throw new Exception("DbStore is null");
             }
             var table = db.GetTableName(typeof(TStory));
-            var sql = string.Format("SELECT * FROM {0} WHERE CONTAINS((Title, Description), @p0)", table);
+            var sql = string.Format(@"SELECT * FROM dbo.{0} WHERE FreeText(([Title],[Description]), @p0)", table);
             return await db.Set<TStory>().SqlQuery(sql, term).ToListAsync();
         }
     }

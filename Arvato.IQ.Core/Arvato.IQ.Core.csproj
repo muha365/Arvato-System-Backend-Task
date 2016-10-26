@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\ApiResource.cs" />
     <Compile Include="Api\ResourceLink.cs" />
     <Compile Include="Entities\IStory.cs" />
     <Compile Include="Helpers\AsyncHelper.cs" />

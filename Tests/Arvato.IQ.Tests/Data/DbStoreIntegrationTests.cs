@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using Xunit;
+using Arvato.IQ.Data.Stores;
 
 namespace Arvato.IQ.Tests.Data
 {
@@ -31,6 +32,13 @@ namespace Arvato.IQ.Tests.Data
             
         }
 
-       
+        [Fact]
+        public async void Should_FullText_Search_Stories_Successfully()
+        {
+            var store = new StoryStore<Story>(DbFixture.Database);
+            var list = await store.Search(@"Clinton Or World");
+
+            Assert.NotNull(list);  
+        }
     }
 }
