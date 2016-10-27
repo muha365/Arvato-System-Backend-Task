@@ -35,7 +35,7 @@ namespace Arvato.IQ.Data.Stores
         {
         }
 
-        public async Task<IEnumerable<TStory>> Search(string term)
+        public virtual async Task<IEnumerable<TStory>> Search(string term)
         {
             DbStore db = DbStore as DbStore;
             if (db == null)
@@ -43,7 +43,7 @@ namespace Arvato.IQ.Data.Stores
                 throw new Exception("DbStore is null");
             }
             var table = db.GetTableName(typeof(TStory));
-            var sql = string.Format(@"SELECT * FROM dbo.{0} WHERE FreeText(([Title],[Description]), @p0)", table);
+            var sql = string.Format(@"SELECT * FROM dbo.{0} WHERE Contains(([Title],[Description]), @p0)", table);
             return await db.Set<TStory>().SqlQuery(sql, term).ToListAsync();
         }
     }

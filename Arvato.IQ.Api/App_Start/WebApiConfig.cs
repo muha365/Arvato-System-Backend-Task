@@ -25,6 +25,11 @@ namespace Arvato.IQ.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { Controller="Home", id = RouteParameter.Optional }
             );
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi-Search",
+                routeTemplate: "api/{controller}/Search/{id}",
+                defaults: new { action="Search" }
+            );
         }
     }
 }

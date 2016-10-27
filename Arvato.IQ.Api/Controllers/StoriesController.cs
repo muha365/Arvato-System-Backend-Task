@@ -181,7 +181,7 @@ namespace Arvato.IQ.Api.Controllers
         /// </summary>
         /// <param name="id">story id</param>
         /// <returns></returns>
-        /// <response code="200">Deleted successfully</response>
+        /// <response code="204">Deleted successfully</response>
         /// <response code="404">Resource not found</response>
         /// <response code="500">Internal Server Error</response>
         [HttpDelete]
@@ -203,6 +203,29 @@ namespace Arvato.IQ.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Search stories 
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
+        [HttpGet] 
+        [Route("api/Stories/search")]
+        public async Task<IHttpActionResult> Search([FromUri]string term)
+        {
+            if (string.IsNullOrEmpty(term))
+            {
+                return BadRequest("search term shouldn't be null or empty");
+            }
+            try
+            {
+                var result = await Store.Search(term);
+                return Ok(ResourceFactory.Create(result));
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
 
     }
 }
