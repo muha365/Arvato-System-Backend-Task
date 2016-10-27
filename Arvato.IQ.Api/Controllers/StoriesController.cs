@@ -2,6 +2,7 @@
 using Arvato.IQ.Core.Stores;
 using Arvato.IQ.Data;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -105,6 +106,7 @@ namespace Arvato.IQ.Api.Controllers
                 return InternalServerError(ex);
             }
         }
+        
         /// <summary>
         /// Create new story
         /// </summary>
@@ -138,7 +140,7 @@ namespace Arvato.IQ.Api.Controllers
         /// </summary>
         /// <param name="story"></param>
         /// <returns>Updated or created new resource</returns>
-        /// <response code="200">Updated successfully</response>
+        /// <response code="204">Updated successfully</response>
         /// <response code="201">Created successfully</response>
         /// <response code="400">Bad request</response>
         /// <response code="500">Internal Server Error</response>
@@ -156,7 +158,7 @@ namespace Arvato.IQ.Api.Controllers
                         storyEntity.Description = story.Description;
                         story.PublishedAt = story.PublishedAt;
                         await Store.UpdateAsync(storyEntity);
-                        return Ok();
+                        return StatusCode(HttpStatusCode.NoContent);
                     }
                     else
                     {
@@ -193,12 +195,14 @@ namespace Arvato.IQ.Api.Controllers
                     return NotFound();
                 }
                 await Store.DeleteAsync(story);
-                return Ok();
+                return StatusCode(HttpStatusCode.NoContent);
             }
             catch (Exception ex)
             {
                 return InternalServerError(ex);
             }
         }
+
+
     }
 }
