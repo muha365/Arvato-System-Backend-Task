@@ -9,7 +9,7 @@ namespace Arvato.IQ.Api.Models
     public class StoryModel
     {
         [Required]
-        public int StoryId { get; set; }
+        public long StoryId { get; set; }
         [Required]
         [MaxLength(500)]
         public string Title { get; set; }

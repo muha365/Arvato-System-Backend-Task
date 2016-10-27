@@ -124,7 +124,7 @@ namespace Arvato.IQ.Api.Controllers
                 {
                     var storyEntity = new Story() { Title = story.Title, Description = story.Description, PublishedAt = story.PublishedAt.ToUniversalTime() };
                     await Store.CreateAsync(storyEntity);
-                    return CreatedAtRoute("defaultApi", new { id = story.StoryId }, ResourceFactory.Create(storyEntity));
+                    return CreatedAtRoute("defaultApi", new { id = storyEntity.StoryId }, ResourceFactory.Create(storyEntity));
                 }
                 catch (Exception ex)
                 {
